@@ -36,6 +36,11 @@ describe PingPong::Game do
     it "returns the non-current player" do
       game.other_player.should == player2
     end
+
+    it "can take a player and return the other player" do
+      game.other_player(player1).should == player2
+      game.other_player(player2).should == player1
+    end
   end
 
   describe "#total_score" do
@@ -111,6 +116,42 @@ describe PingPong::Game do
       15.times { player1.score! }
       21.times { player2.score! }
       game.winner.should == player2
+    end
+  end
+
+  describe "#round!" do
+    it "scores for the other player when the current player missess the serve" do
+      Array.any_instance.stub(:sample).and_return(:miss)
+      game.round!
+      player1.score.should == 0
+      player2.score.should == 1
+    end
+
+    it "scores for the current player when the current player hits and the other player misses" do
+      results = [:hit, :miss]
+      Array.any_instance.stub(:sample) { results.shift }
+
+      game.round!
+      player1.score.should == 1
+      player2.score.should == 0
+    end
+
+    it "scores for the other player when the current player hits and the other player hits and then the current player misses" do
+      results = [:hit, :hit, :miss]
+      Array.any_instance.stub(:sample) { results.shift }
+
+      game.round!
+      player1.score.should == 0
+      player2.score.should == 1
+    end
+
+    it "reserves when the player let's" do
+      results = [:let, :hit, :hit, :miss]
+      Array.any_instance.stub(:sample) { results.shift }
+
+      game.round!
+      player1.score.should == 0
+      player2.score.should == 1
     end
   end
 end

@@ -1,3 +1,4 @@
+require_relative "pingpong/ball.rb"
 require_relative "pingpong/game.rb"
 require_relative "pingpong/io.rb"
 require_relative "pingpong/player.rb"

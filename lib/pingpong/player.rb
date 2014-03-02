@@ -7,19 +7,32 @@ module PingPong
       @score = 0
     end
 
-    def serve
-      result = [:let, :miss, :success].sample
+    def serve(ball)
+      result = [:let, :miss, :hit].sample
 
       case result
       when :let
         PingPong::IO.puts "#{self} has hit the net and will re-serve."
-        serve
+        serve ball
       when :miss
-        PingPong::IO.puts "Ohs noes! The serve went out!"
-        false
+        PingPong::IO.puts "Ohs noes! #{self}'s serve went out!"
+        ball.miss!
       else
         PingPong::IO.puts "#{self} serves an awesome shot!"
-        true
+        ball.hit!
+      end
+    end
+
+    def hit(ball)
+      result = [:miss, :hit].sample
+
+      case result
+      when :miss
+        PingPong::IO.puts "D'oh! #{self} hit the ball out!"
+        ball.miss!
+      else
+        PingPong::IO.puts "#{self} whacks the ball."
+        ball.hit!
       end
     end
 

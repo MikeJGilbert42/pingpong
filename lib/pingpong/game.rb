@@ -18,14 +18,15 @@ module PingPong
     def round!
       PingPong::IO.puts "Press Enter to serve as #{current_player}"
       PingPong::IO.gets
+      ball = PingPong::Ball.new current_player
+      current_player.serve ball
 
-      ok = current_player.serve
-      other_player.score! unless ok
-      current_player.score! if ok
+      until ball.missed?
+        ball.possessor = other_player ball.possessor
+        ball.possessor.hit ball
+      end
 
-#      until missed
-#      end
-
+      other_player(ball.possessor).score!
       PingPong::IO.puts "The score is #{player1}: #{player1.score} - #{player2}: #{player2.score}"
       change_possession! if total_score % 5 == 0
     end
@@ -43,8 +44,10 @@ module PingPong
       player1.score + player2.score
     end
 
-    def other_player
-      if current_player == player1
+    def other_player(player = nil)
+      player = current_player unless player
+
+      if player == player1
         player2
       else
         player1
