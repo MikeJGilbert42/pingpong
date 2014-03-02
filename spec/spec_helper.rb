@@ -1,6 +1,4 @@
-require_relative "../lib/game.rb"
-require_relative "../lib/io.rb"
-require_relative "../lib/player.rb"
+require_relative "../lib/pingpong.rb"
 
 RSpec.configure do |config|
   config.before :each do

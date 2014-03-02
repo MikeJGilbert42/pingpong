@@ -1,7 +1,7 @@
 require "spec_helper"
 
-describe Player do
-  let(:player) { Player.new "Mike" }
+describe PingPong::Player do
+  let(:player) { PingPong::Player.new "Mike" }
 
   it "has a name" do
     player.name.should == "Mike"
