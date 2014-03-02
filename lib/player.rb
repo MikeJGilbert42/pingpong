@@ -1,5 +1,5 @@
 class Player
-  attr_accessor :name, :score
+  attr_reader :name, :score
 
   def initialize(name)
     @name = name
@@ -11,13 +11,13 @@ class Player
 
     case result
     when :let
-      puts "#{self} has hit the net and will re-serve."
+      PingPong::IO.puts "#{self} has hit the net and will re-serve."
       serve
     when :miss
-      puts "Ohs noes! The serve went out!"
+      PingPong::IO.puts "Ohs noes! The serve went out!"
       false
     else
-      puts "#{self} serves an awesome shot!"
+      PingPong::IO.puts "#{self} serves an awesome shot!"
       true
     end
   end
