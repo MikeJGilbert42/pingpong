@@ -8,9 +8,7 @@ module PingPong
     end
 
     def serve(ball)
-      result = [:let, :miss, :hit].sample
-
-      case result
+      case do_serve(ball)
       when :let
         PingPong::IO.puts "#{self} has hit the net and will re-serve."
         serve ball
@@ -24,9 +22,7 @@ module PingPong
     end
 
     def hit(ball)
-      result = [:miss, :hit].sample
-
-      case result
+      case do_hit(ball)
       when :miss
         PingPong::IO.puts "D'oh! #{self} hit the ball out!"
         ball.miss!
@@ -42,6 +38,15 @@ module PingPong
 
     def to_s
       name
+    end
+
+    private
+    def do_serve(ball)
+      [:let, :miss, :hit].sample
+    end
+
+    def do_hit(ball)
+      [:miss, :hit].sample
     end
   end
 end

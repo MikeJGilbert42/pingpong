@@ -121,22 +121,24 @@ describe PingPong::Game do
 
   describe "#round!" do
     it "scores for the other player when the current player missess the serve" do
-      Array.any_instance.stub(:sample).and_return(:miss)
+      miss_serve! player1
       game.round!
       player1.score.should == 0
       player2.score.should == 1
     end
 
     it "scores for the current player when the current player hits and the other player misses" do
-      results = [:hit, :miss]
-      Array.any_instance.stub(:sample) { results.shift }
-
+      hit_serve! player1
+      miss_return! player2
       game.round!
       player1.score.should == 1
       player2.score.should == 0
     end
 
     it "scores for the other player when the current player hits and the other player hits and then the current player misses" do
+      hit_serve! player1
+      hit_return! player2
+      miss_return! player1
       results = [:hit, :hit, :miss]
       Array.any_instance.stub(:sample) { results.shift }
 
@@ -146,9 +148,10 @@ describe PingPong::Game do
     end
 
     it "reserves when the player let's" do
-      results = [:let, :hit, :hit, :miss]
-      Array.any_instance.stub(:sample) { results.shift }
-
+      let_serve! player1
+      hit_serve! player1
+      hit_return! player2
+      miss_return! player1
       game.round!
       player1.score.should == 0
       player2.score.should == 1
