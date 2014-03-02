@@ -1,0 +1,12 @@
+Possibilities for traits:
+  Agility: Whether you can spin and return spin
+  Strength: How powerful your shots tend to be
+  Reflexes: Whether you can return a powerful shot
+  Endurance: How tired you get
+  Determination: ??
+
+Attributes of ball shot:
+  Lob/normal/slam
+  Underspin/straight/topspin
+  Poor/normal/well placement
+  Hit the net / hit the edge
