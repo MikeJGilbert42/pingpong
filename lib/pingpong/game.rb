@@ -31,6 +31,7 @@ module PingPong
     end
 
     def winner
+      return nil unless has_winner?
       [player1, player2].sort_by(&:score).last
     end
 
