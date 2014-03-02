@@ -27,7 +27,7 @@ module PingPong
       end
 
       other_player(ball.possessor).score!
-      PingPong::IO.puts "The score is #{player1}: #{player1.score} - #{player2}: #{player2.score}"
+      PingPong::IO.puts score_message
 
       if player1.score >= 20 && player2.score >= 20
         change_possession!
@@ -36,8 +36,25 @@ module PingPong
       end
     end
 
+    def score_message
+      if player1.score >= 20 && player2.score >= 20 && !has_winner?
+        if player1.score == player2.score
+          "The score is DEUCE (#{player1}: #{player1.score} - #{player2}: #{player2.score})"
+        else
+          "The score is ADVANTAGE #{winning_player} (#{player1}: #{player1.score} - #{player2}: #{player2.score})"
+        end
+      else
+        "The score is #{player1}: #{player1.score} - #{player2}: #{player2.score}"
+      end
+    end
+
     def winner
       return nil unless has_winner?
+      [player1, player2].max_by(&:score)
+    end
+
+    def winning_player
+      return nil if player1.score == player2.score
       [player1, player2].max_by(&:score)
     end
 

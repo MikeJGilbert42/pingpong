@@ -253,4 +253,43 @@ describe PingPong::Game do
       game.current_player.should == player2
     end
   end
+
+  describe "#score_message" do
+    it "shows normal score for pre-deuce scoring" do
+      game.score_message.should == "The score is Mike VS: 0 - Mike G: 0"
+
+      4.times { player1.score! }
+      2.times { player2.score! }
+      game.score_message.should == "The score is Mike VS: 4 - Mike G: 2"
+
+      10.times { player1.score! }
+      10.times { player2.score! }
+      game.score_message.should == "The score is Mike VS: 14 - Mike G: 12"
+    end
+
+    it "shows deuce scoring" do
+      20.times { player1.score! }
+      20.times { player2.score! }
+      game.score_message.should == "The score is DEUCE (Mike VS: 20 - Mike G: 20)"
+
+      player1.score!
+      game.score_message.should == "The score is ADVANTAGE Mike VS (Mike VS: 21 - Mike G: 20)"
+
+      player2.score!
+      game.score_message.should == "The score is DEUCE (Mike VS: 21 - Mike G: 21)"
+
+      player2.score!
+      game.score_message.should == "The score is ADVANTAGE Mike G (Mike VS: 21 - Mike G: 22)"
+    end
+
+    it "shows the proper final score in post-deuce" do
+      20.times { player1.score! }
+      22.times { player2.score! }
+      game.score_message.should == "The score is Mike VS: 20 - Mike G: 22"
+
+      player2.score!
+      5.times { player1.score! }
+      game.score_message.should == "The score is Mike VS: 25 - Mike G: 23"
+    end
+  end
 end

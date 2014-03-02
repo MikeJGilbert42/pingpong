@@ -9,6 +9,7 @@ module PingPong
       game = PingPong::Game.new
       game.coin_flip!
       game.round! until game.has_winner?
+      PingPong::IO.puts "The winner is: #{game.winner}"
     end
   end
 end
