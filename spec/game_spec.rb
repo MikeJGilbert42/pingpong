@@ -156,5 +156,55 @@ describe PingPong::Game do
       player1.score.should == 0
       player2.score.should == 1
     end
+
+    it "doesn't change server for the first 4 points" do
+      player1_score! game
+      game.round!
+      game.current_player.should == game.player1
+
+      player2_score! game
+      game.round!
+      game.current_player.should == game.player1
+
+      player1_score! game
+      game.round!
+      game.current_player.should == game.player1
+
+      player1_score! game
+      game.round!
+      game.current_player.should == game.player1
+    end
+
+    it "alternates server every 5 points" do
+      player1_score! game
+      game.round!
+
+      player1_score! game
+      game.round!
+
+      player1_score! game
+      game.round!
+
+      player2_score! game
+      game.round!
+      game.current_player.should == game.player1
+
+      player2_score! game
+      game.round!
+      game.current_player.should == game.player2
+
+      player2_score! game
+      game.round!
+      player1_score! game
+      game.round!
+      player1_score! game
+      game.round!
+      player2_score! game
+      game.round!
+
+      player1_score! game
+      game.round!
+      game.current_player.should == game.player1
+    end
   end
 end
