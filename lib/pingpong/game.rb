@@ -28,7 +28,12 @@ module PingPong
 
       other_player(ball.possessor).score!
       PingPong::IO.puts "The score is #{player1}: #{player1.score} - #{player2}: #{player2.score}"
-      change_possession! if total_score % 5 == 0
+
+      if player1.score >= 20 && player2.score >= 20
+        change_possession!
+      elsif total_score % 5 == 0
+        change_possession!
+      end
     end
 
     def winner

@@ -24,7 +24,7 @@ module PlayerHits
       hit_serve! game.player1
       miss_return! game.player2
     else
-      miss_serve! game.player1
+      miss_serve! game.player2
     end
   end
 
@@ -33,7 +33,7 @@ module PlayerHits
       hit_serve! game.player2
       miss_return! game.player1
     else
-      miss_serve! game.player2
+      miss_serve! game.player1
     end
   end
 end

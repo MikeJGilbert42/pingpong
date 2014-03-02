@@ -206,5 +206,51 @@ describe PingPong::Game do
       game.round!
       game.current_player.should == game.player1
     end
+
+    it "alternates every serve when in deuce" do
+      20.times do
+        player1_score! game
+        game.round!
+      end
+
+      14.times do
+        player2_score! game
+        game.round!
+      end
+
+      game.current_player.should == player1
+
+      5.times do
+        player2_score! game
+        game.round!
+        game.current_player.should == player2
+      end
+
+      player2_score! game
+      game.round!
+      game.current_player.should == player1
+      player1.score.should == 20
+      player2.score.should == 20
+
+      player2_score! game
+      game.round!
+      game.current_player.should == player2
+
+      player1_score! game
+      game.round!
+      game.current_player.should == player1
+
+      player2_score! game
+      game.round!
+      game.current_player.should == player2
+
+      player1_score! game
+      game.round!
+      game.current_player.should == player1
+
+      player1_score! game
+      game.round!
+      game.current_player.should == player2
+    end
   end
 end
