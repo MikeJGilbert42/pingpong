@@ -10,3 +10,8 @@ Attributes of ball shot:
   Underspin/straight/topspin
   Poor/normal/well placement
   Hit the net / hit the edge
+
+Interactive mode... be able to respond to each shot
+  If you take too long it is an automatic miss
+  You can specifically use spin or slam
+  Maybe connect to another player and play over the network
